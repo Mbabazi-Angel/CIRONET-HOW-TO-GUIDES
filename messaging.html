@@ -1,0 +1,995 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cironet Messaging — Start to Delivery Guide</title>
+    <style>
+        /* Base Reset & Brand Colors */
+        :root {
+            --primary-navy: #0b1b3d;
+            --cironet-blue: #1d4ed8;
+            --blue-hover: #1e40af;
+            --light-bg: #f8fafc;
+            --card-bg: #ffffff;
+            --text-dark: #0f172a;
+            --text-muted: #64748b;
+            --border-color: #e2e8f0;
+            --check-green: #10b981;
+            --badge-bg: #eff6ff;
+            --badge-text: #1d4ed8;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background-color: var(--light-bg);
+            color: var(--text-dark);
+            line-height: 1.6;
+            scroll-behavior: smooth;
+        }
+
+        /* Header Navigation */
+        .navbar {
+            background-color: var(--primary-navy);
+            color: #ffffff;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .navbar .brand {
+            font-size: 1.25rem;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .navbar .brand span {
+            color: #60a5fa;
+            font-weight: 400;
+        }
+
+        .navbar .nav-btn {
+            background-color: var(--cironet-blue);
+            color: #ffffff;
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            transition: background 0.2s;
+        }
+
+        .navbar .nav-btn:hover {
+            background-color: var(--blue-hover);
+        }
+
+        /* Layout Container */
+        .container {
+            max-width: 1240px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: #ffffff;
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 2.5rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+        }
+
+        .hero-badge {
+            display: inline-block;
+            background: var(--badge-bg);
+            color: var(--badge-text);
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            padding: 4px 12px;
+            border-radius: 20px;
+            margin-bottom: 1rem;
+        }
+
+        .hero h1 {
+            font-size: 2.25rem;
+            color: var(--primary-navy);
+            font-weight: 800;
+            margin-bottom: 0.75rem;
+            letter-spacing: -0.5px;
+        }
+
+        .hero p {
+            color: var(--text-muted);
+            font-size: 1.05rem;
+            max-width: 850px;
+            margin-bottom: 1.75rem;
+        }
+
+        /* Hero Badges Bar */
+        .steps-bar {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .step-badge {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--light-bg);
+            border: 1px solid var(--border-color);
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: var(--text-dark);
+        }
+
+        .step-number {
+            background: var(--cironet-blue);
+            color: #ffffff;
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+        }
+
+        /* Grid: Sidebar + Content */
+        .guide-grid {
+            display: grid;
+            grid-template-columns: 290px 1fr;
+            gap: 2.5rem;
+            align-items: start;
+        }
+
+        /* Sticky Sidebar */
+        .sidebar {
+            position: sticky;
+            top: 5rem;
+            background: #ffffff;
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 1.25rem;
+            max-height: calc(100vh - 6rem);
+            overflow-y: auto;
+        }
+
+        .sidebar h3 {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-muted);
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .sidebar-group {
+            margin-bottom: 1rem;
+        }
+
+        .sidebar-group-title {
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: var(--primary-navy);
+            margin-bottom: 0.4rem;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .sidebar nav a {
+            display: block;
+            text-decoration: none;
+            color: var(--text-dark);
+            font-size: 0.85rem;
+            font-weight: 500;
+            padding: 5px 10px;
+            border-radius: 6px;
+            margin-bottom: 2px;
+            transition: all 0.2s;
+        }
+
+        .sidebar nav a:hover, .sidebar nav a.active {
+            background-color: var(--badge-bg);
+            color: var(--cironet-blue);
+            font-weight: 600;
+        }
+
+        .sidebar-subnav {
+            padding-left: 12px;
+            border-left: 2px solid var(--border-color);
+            margin-left: 6px;
+        }
+
+        /* Content Area */
+        .content {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .doc-section {
+            background: #ffffff;
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 2rem;
+            scroll-margin-top: 5rem;
+        }
+
+        .section-title-bar {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 1.25rem;
+        }
+
+        .section-num {
+            background: var(--primary-navy);
+            color: #ffffff;
+            font-weight: 700;
+            font-size: 1rem;
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .section-title-bar h2 {
+            font-size: 1.4rem;
+            color: var(--primary-navy);
+            font-weight: 700;
+        }
+
+        .intro-list {
+            list-style: none;
+            margin-top: 1rem;
+        }
+
+        .intro-list li {
+            position: relative;
+            padding-left: 1.5rem;
+            margin-bottom: 0.5rem;
+            color: #334155;
+        }
+
+        .intro-list li::before {
+            content: "•";
+            color: var(--cironet-blue);
+            font-weight: bold;
+            font-size: 1.2rem;
+            position: absolute;
+            left: 0;
+            top: -2px;
+        }
+
+        /* Collapsible Accordions (<details>) */
+        details.collapsible-card {
+            background: #ffffff;
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            margin-bottom: 1rem;
+            overflow: hidden;
+            transition: border 0.2s;
+        }
+
+        details.collapsible-card[open] {
+            border-color: #cbd5e1;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+        }
+
+        summary.collapsible-header {
+            padding: 1.2rem 1.5rem;
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: var(--primary-navy);
+            cursor: pointer;
+            background: #ffffff;
+            list-style: none;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            user-select: none;
+        }
+
+        summary.collapsible-header::-webkit-details-marker {
+            display: none;
+        }
+
+        summary.collapsible-header::after {
+            content: "▼";
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            transition: transform 0.2s;
+        }
+
+        details[open] summary.collapsible-header::after {
+            transform: rotate(180deg);
+            color: var(--cironet-blue);
+        }
+
+        summary.collapsible-header:hover {
+            background: #f8fafc;
+        }
+
+        .collapsible-body {
+            padding: 1.5rem;
+            border-top: 1px solid var(--border-color);
+            background: #ffffff;
+        }
+
+        .subsection-block {
+            margin-bottom: 2rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px dashed var(--border-color);
+            scroll-margin-top: 5rem;
+        }
+
+        .subsection-block:last-child {
+            margin-bottom: 0;
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+
+        .subsection-title {
+            font-size: 1.1rem;
+            color: var(--cironet-blue);
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        /* Step Card Styling with Green Check Icons */
+        .step-item {
+            margin-bottom: 1.75rem;
+            background: #f8fafc;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 1.25rem;
+        }
+
+        .step-header {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            font-weight: 600;
+            color: var(--text-dark);
+            font-size: 0.95rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .step-check {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 22px;
+            height: 22px;
+            background-color: var(--check-green);
+            color: #ffffff;
+            border-radius: 50%;
+            font-size: 12px;
+            font-weight: bold;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        /* Screenshot Container */
+        .screenshot-frame {
+            background: #ffffff;
+            border: 2px dashed #cbd5e1;
+            border-radius: 8px;
+            padding: 1.5rem;
+            text-align: center;
+            color: var(--text-muted);
+            margin-top: 0.75rem;
+        }
+
+        .screenshot-frame img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 6px;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+        }
+
+        .screenshot-label {
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: #64748b;
+            margin-top: 0.4rem;
+        }
+
+        /* Footer */
+        .footer {
+            margin-top: 4rem;
+            padding: 2rem 0;
+            text-align: center;
+            border-top: 1px solid var(--border-color);
+            color: var(--text-muted);
+            font-size: 0.875rem;
+        }
+
+        @media (max-width: 868px) {
+            .guide-grid {
+                grid-template-columns: 1fr;
+            }
+            .sidebar {
+                position: static;
+                max-height: none;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Top Navigation -->
+    <header class="navbar">
+        <div class="brand">
+            Cironet <span>Messaging Guide</span>
+        </div>
+    </header>
+
+    <div class="container">
+
+        <!-- Hero Section -->
+        <section class="hero">
+            <span class="hero-badge">User Guide</span>
+            <h1>Cironet Messaging, start to delivery</h1>
+            <p>A complete walkthrough of the Cironet Messaging portal. Learn how to launch, schedule and customize bulk SMS, Email & WhatsApp campaigns.</p>
+
+            <!-- 4 Step Badges -->
+            <div class="steps-bar">
+                <div class="step-badge"><span class="step-number">1</span> Dashboard Overview</div>
+                <div class="step-badge"><span class="step-number">2</span> Bulk SMS</div>
+                <div class="step-badge"><span class="step-number">3</span> Bulk Emails</div>
+                <div class="step-badge"><span class="step-number">4</span> WhatsApp Campaigns</div>
+            </div>
+        </section>
+
+        <!-- Main Layout: Sticky Sidebar + Content -->
+        <div class="guide-grid">
+
+            <!-- Sticky Sidebar Navigation -->
+            <aside class="sidebar">
+                <h3>On This Page</h3>
+                <nav>
+                    <div class="sidebar-group">
+                        <a href="#intro" class="active">Introduction</a>
+                        <a href="#dashboard">Dashboard & Credits</a>
+                    </div>
+
+                    <!-- Collapsible Contacts Navigation -->
+                    <div class="sidebar-group">
+                        <div class="sidebar-group-title">Contacts & Tools</div>
+                        <div class="sidebar-subnav">
+                            <a href="#contact-groups">Contact Groups</a>
+                            <a href="#templates">Templates</a>
+                        </div>
+                    </div>
+
+                    <!-- Collapsible SMS Navigation -->
+                    <div class="sidebar-group">
+                        <div class="sidebar-group-title">SMS</div>
+                        <div class="sidebar-subnav">
+                            <a href="#send-bulk-sms">Send Bulk SMS</a>
+                            <a href="#schedule-sms">Schedule SMS</a>
+                            <a href="#custom-sms">Custom SMS</a>
+                            <a href="#custom-sms-history">Custom SMS History</a>
+                        </div>
+                    </div>
+
+                    <!-- Collapsible Email Navigation -->
+                    <div class="sidebar-group">
+                        <div class="sidebar-group-title">Email</div>
+                        <div class="sidebar-subnav">
+                            <a href="#send-email">Send Email</a>
+                            <a href="#schedule-email">Schedule Email</a>
+                            <a href="#email-history">Email History</a>
+                        </div>
+                    </div>
+
+                    <!-- Collapsible WA Navigation -->
+                    <div class="sidebar-group">
+                        <div class="sidebar-group-title">WhatsApp</div>
+                        <div class="sidebar-subnav">
+                            <a href="#send-bulk-wa">Send Bulk WA</a>
+                            <a href="#schedule-wa">Schedule WA</a>
+                        </div>
+                    </div>
+
+                </nav>
+            </aside>
+
+            <!-- Main Content Area -->
+            <main class="content">
+
+                <!-- 1. Introduction -->
+                <section id="intro" class="doc-section">
+                    <div class="section-title-bar">
+                        <span class="section-num">1</span>
+                        <h2>Introduction</h2>
+                    </div>
+                    <p>Welcome to <strong>Cironet Messaging</strong>, it handles bulk communications of the Cironet ecosystem. This portal allows businesses to communicate instantly with clients via Bulk SMS, email broadcasts, and branded WhatsApp messages.</p>
+                    <ul class="intro-list">
+                        <li>Navigating your Cironet Messaging portal (<code>messaging.cironetug.com</code>)</li>
+                        <li>Managing campaign credits and wallet balance</li>
+                        <li>Creating contact groups and email lists</li>
+                        <li>Composing personalized bulk SMS using dynamic placeholders (e.g., <code>{name}</code>)</li>
+                        <li>Launching email and WhatsApp campaigns</li>
+                    </ul>
+                </section>
+
+                <!-- 2. Dashboard & Credits -->
+                <section id="dashboard" class="doc-section">
+                    <div class="section-title-bar">
+                        <span class="section-num">2</span>
+                        <h2>Dashboard & Credits</h2>
+                    </div>
+                    <p>Monitor real-time system performance, view campaign dispatch metrics, and keep track of your messaging credit wallet balance.</p>
+                    
+                    <div class="step-item">
+                        <div class="step-header">
+                            <span class="step-check">&#10003;</span>
+                            <span>Click on top-up wallet to recharge your balance</span>
+                        </div>
+                        <div class="screenshot-frame">
+                            <img src="IMAGES/Messaging screenshots/Screenshot 2026-09-07 215322.png" alt="">
+                        </div>
+                    </div>
+                    <div class="step-item">
+                        <div class="step-header">
+                            <span class="step-check">&#10003;</span>
+                            <span>Verify your credit balance requirement before sending bulk messages</span>
+                        </div>
+                        <div class="screenshot-frame">
+                            <img src="IMAGES/Messaging screenshots/Screenshot 2026-09-07 215338.png" alt="">
+                        </div>
+                    </div>
+                </section>
+
+                <!-- 3. Contacts & Tools (Collapsible) -->
+                <details id="contacts-tools" class="collapsible-card" open>
+                    <summary class="collapsible-header">
+                        📂 Contacts & Tools
+                    </summary>
+                    <div class="collapsible-body">
+
+                        <!-- Contact Groups -->
+                        <div id="contact-groups" class="subsection-block">
+                            <h3 class="subsection-title">Contact Groups</h3>
+                            <p>If you intend to send bulk sms to the same group of people multiple times, create a contact group that can be reused again instead of always uploading a file or pasting numbers.</p><br>
+
+                            <div class="step-item">
+                                <div class="step-header">
+                                    <span class="step-check">&#10003;</span>
+                                    <span>Step 1: Click on the New Group button.</span>
+                                </div>
+                                <div class="screenshot-frame">
+                                    <img src="IMAGES/Messaging screenshots/Screenshot 2026-09-07 220231.png" alt="">
+                                </div>
+                            </div>
+
+                            <div class="step-item">
+                                <div class="step-header">
+                                    <span class="step-check">&#10003;</span>
+                                    <span>Step 2: Fill in the details: Group Name, Upload .txt File (one number per line), Or Paste Numbers.</span>
+                                </div>
+                                <div class="screenshot-frame">
+                                    <img src="IMAGES/Messaging screenshots/Screenshot 2026-09-07 225345.png" alt="">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Templates -->
+                        <div id="templates" class="subsection-block">
+                            <h3 class="subsection-title">Templates</h3>
+                            <p>If you have a particular message you want to send repeatedly, create a template to save time and ensure consistency.</p><br>
+
+                            <div class="step-item">
+                                <div class="step-header">
+                                    <span class="step-check">&#10003;</span>
+                                    <span>Step 1: Click on the create template button.</span>
+                                </div>
+                                <div class="screenshot-frame">
+                                    <img src="IMAGES/Messaging screenshots/Screenshot 2026-09-07 225859.png" alt="">
+                                </div>
+                            </div>
+
+                            <div class="step-item">
+                                <div class="step-header">
+                                    <span class="step-check">&#10003;</span>
+                                    <span>Step 2: Fill in the details: Template Name *, Channel (Choose channel for which you want your contact groups to apply), and Message Body.</span>
+                                </div>
+                                <div class="screenshot-frame">
+                                    <img src="IMAGES/Messaging screenshots/Screenshot 2026-09-07 230015.png" alt="">
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </details>
+
+                <!-- 4. SMS (Collapsible) -->
+                <details id="sms-section" class="collapsible-card" open>
+                    <summary class="collapsible-header">
+                        💬 Bulk SMS
+                    </summary>
+                    <div class="collapsible-body">
+
+                        <!-- Send Bulk SMS -->
+                        <div id="send-bulk-sms" class="subsection-block">
+                            <h3 class="subsection-title">Send Bulk SMS</h3>
+
+                            <div class="step-item">
+                                <div class="step-header">
+                                    <span class="step-check">&#10003;</span>
+                                    <span>Step 1: Choose your Recipients (Select a Contact Group from created ones, Upload .txt File, or Paste Numbers - one per line or comma-separated).</span>
+                                </div>
+                                <div class="screenshot-frame">
+                                    <img src="IMAGES/Messaging screenshots/Screenshot 2026-09-07 230237.png" alt="">
+                                </div>
+                            </div>
+
+                            <div class="step-item">
+                                <div class="step-header">
+                                    <span class="step-check">&#10003;</span>
+                                    <span>Step 2: Fill in your preferred Sender ID.</span>
+                                </div>
+                                <div class="screenshot-frame">
+                                    <img src="IMAGES/Messaging screenshots/Screenshot 2026-09-07 230645.png" alt="">
+                                </div>
+                            </div>
+
+                            <div class="step-item">
+                                <div class="step-header">
+                                    <span class="step-check">&#10003;</span>
+                                    <span>Step 3: Compose your message and click send.</span>
+                                </div>
+                                <div class="screenshot-frame">
+                                    <img src="IMAGES/Messaging screenshots/Screenshot 2026-09-07 230836.png" alt="">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Schedule SMS -->
+                        <div id="schedule-sms" class="subsection-block">
+                            <h3 class="subsection-title">Schedule SMS</h3>
+
+                            <div class="step-item">
+                                <div class="step-header">
+                                    <span class="step-check">&#10003;</span>
+                                    <span>Step 1: Select your Contact Group Or Upload .txt Or Paste Numbers.</span>
+                                </div>
+                                <div class="screenshot-frame">
+                                    <img src="IMAGES/Messaging screenshots/Screenshot 2026-09-07 230237.png" alt="">
+                                </div>
+                            </div>
+
+                            <div class="step-item">
+                                <div class="step-header">
+                                    <span class="step-check">&#10003;</span>
+                                    <span>Step 2: Choose the Delivery Date & Time and fill in the Sender ID.</span>
+                                </div>
+                                <div class="screenshot-frame">
+                                    <img src="IMAGES/Messaging screenshots/Screenshot 2026-09-07 231207.png" alt="">
+                                </div>
+                            </div>
+
+                            <div class="step-item">
+                                <div class="step-header">
+                                    <span class="step-check">&#10003;</span>
+                                    <span>Step 4: Choose your Message template (the one you created). You can edit it to your liking and send.</span>
+                                </div>
+                                <div class="screenshot-frame">
+                                    <img src="IMAGES/Messaging screenshots/Screenshot 2026-09-07 231511.png" alt="">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Custom SMS -->
+                        <div id="custom-sms" class="subsection-block">
+                            <h3 class="subsection-title">Custom SMS</h3>
+
+                            <div class="step-item">
+                                <div class="step-header">
+                                    <span class="step-check">&#10003;</span>
+                                    <span>Step 1: Fill in your Campaign Name & Sender ID.</span>
+                                </div>
+                                <div class="screenshot-frame">
+                                    <img src="IMAGES/Messaging screenshots/Screenshot 2026-09-07 232439.png" alt="">
+                                </div>
+                            </div>
+
+                            <div class="step-item">
+                                <div class="step-header">
+                                    <span class="step-check">&#10003;</span>
+                                    <span>Step 2: Upload the Spreadsheet with the names, respective numbers and custom messages to be sent to each number (.csv, .xlsx, or .xls). You can also download a sample template for guidance</span>
+                                </div>
+                                <div class="screenshot-frame">
+                                    <img src="IMAGES/Messaging screenshots/Screenshot 2026-09-07 232627.png" alt="">
+                                </div>
+                            </div>
+
+                            <div class="step-item">
+                                <div class="step-header">
+                                    <span class="step-check">&#10003;</span>
+                                    <span>Step 3: Preview the imported file and verify all details.</span>
+                                </div>
+                                <div class="screenshot-frame">
+                                    <img src="IMAGES/Messaging screenshots/Screenshot 2026-09-07 232932.png" alt="">
+                                </div>
+                            </div>
+
+                            <div class="step-item">
+                                <div class="step-header">
+                                    <span class="step-check">&#10003;</span>
+                                    <span>Step 4: Compose the message by clicking on the fields in the spreadsheet.</span>
+                                </div>
+                                <div class="screenshot-frame">
+                                    <img src="IMAGES/Messaging screenshots/Screenshot 2026-09-07 233130.png" alt="">
+                                </div>
+                            </div>
+
+                            <div class="step-item">
+                                <div class="step-header">
+                                    <span class="step-check">&#10003;</span>
+                                    <span>Step 5: If the message under the preview box is to your liking proceed to review.</span>
+                                </div>
+                                <div class="screenshot-frame">
+                                    <img src="IMAGES/Messaging screenshots/Screenshot 2026-09-07 233345.png" alt="">
+                                </div>
+                            </div>
+
+                            <div class="step-item">
+                                <div class="step-header">
+                                    <span class="step-check">&#10003;</span>
+                                    <span>Step 6: Verify your message template, confirm and send.</span>
+                                </div>
+                                <div class="screenshot-frame">
+                                    <img src="IMAGES/Messaging screenshots/Screenshot 2026-09-07 233500.png" alt="">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Custom SMS History -->
+                        <div id="custom-sms-history" class="subsection-block">
+                            <h3 class="subsection-title">Custom SMS History</h3>
+
+                            <div class="step-item">
+                                <div class="step-header">
+                                    <span class="step-check">&#10003;</span>
+                                    <span>Review previous custom campaign dispatches, status logs, and download historical reports via messaging history.</span>
+                                </div>
+                                <div class="screenshot-frame">
+                                    <img src="IMAGES/Messaging screenshots/Screenshot 2026-09-07 233936.png" alt="">
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </details>
+
+                <!-- 5. Email (Collapsible) -->
+                <details id="email-section" class="collapsible-card" open>
+                    <summary class="collapsible-header">
+                        ✉️ Bulk Emails
+                    </summary>
+                    <div class="collapsible-body">
+
+                        <!-- Send Email / Full Workflow -->
+                        <div id="send-email" class="subsection-block">
+                            <h3 class="subsection-title">Send Email</h3>
+
+                            <div class="step-item">
+                                <div class="step-header">
+                                    <span class="step-check">&#10003;</span>
+                                    <span>Step 1: To save time pasting the same multiple recipient emails over and over, create an email list. Scroll to email lists, click on create list and fill in list name & description.</span>
+                                </div>
+                                <div class="screenshot-frame">
+                                    <img src="IMAGES/Messaging screenshots/Screenshot 2026-09-07 234832.png" alt="">
+                                </div>
+                            </div>
+
+                            <div class="step-item">
+                                <div class="step-header">
+                                    <span class="step-check">&#10003;</span>
+                                    <span>Step 2: After your email list has been created, click on Manage and paste the recipient emails under subscribers.</span>
+                                </div>
+                                <div class="screenshot-frame">
+                                    <img src="IMAGES/Messaging screenshots/Screenshot 2026-09-07 235149.png" alt="">
+                                </div>
+                                <div class="screenshot-frame">
+                                    <img src="IMAGES/Messaging screenshots/Screenshot 2026-09-07 235211.png" alt="">
+                                </div>
+                            </div>
+
+                            <div class="step-item">
+                                <div class="step-header">
+                                    <span class="step-check">&#10003;</span>
+                                    <span>Step 3: Navigate to Compose your email and click on "from list" to choose your created list of recipients.</span>
+                                </div>
+                                <div class="screenshot-frame">
+                                    <img src="IMAGES/Messaging screenshots/Screenshot 2026-09-07 235423.png" alt="">
+                                </div>
+                            </div>
+
+                            <div class="step-item">
+                                <div class="step-header">
+                                    <span class="step-check">&#10003;</span>
+                                    <span>Step 4: Fill in the name and email that the recipient will see.</span>
+                                </div>
+                                <div class="screenshot-frame">
+                                    <img src="IMAGES/Messaging screenshots/Screenshot 2026-09-07 235803.png" alt="">
+                                </div>
+                            </div>
+
+                            <div class="step-item">
+                                <div class="step-header">
+                                    <span class="step-check">&#10003;</span>
+                                    <span>Step 5: Fill in your email subject line & body and send email campaign.</span>
+                                </div>
+                                <div class="screenshot-frame">
+                                    <img src="IMAGES/Messaging screenshots/Screenshot 2026-09-07 235613.png" alt="">
+                                </div>
+                            </div>
+
+                            <div class="step-item">
+                                <div class="step-header">
+                                    <span class="step-check">&#10003;</span>
+                                    <span>Step 6: Under email settings, you can set a default name and email that recipients will always see.</span>
+                                </div>
+                                <div class="screenshot-frame">
+                                    <img src="IMAGES/Messaging screenshots/Screenshot 2026-09-07 235650.png" alt="">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Schedule Email -->
+                        <div id="schedule-email" class="subsection-block">
+                            <h3 class="subsection-title">Schedule Email</h3>
+
+                            <div class="step-item">
+                                <div class="step-header">
+                                    <span class="step-check">&#10003;</span>
+                                    <span>Select target email list, specify future delivery date/time, and finalize scheduled broadcast.</span>
+                                </div>
+                                <div class="screenshot-frame">
+                                    <img src="IMAGES/Messaging screenshots/Screenshot 2026-09-08 000821.png" alt="">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Email History -->
+                        <div id="email-history" class="subsection-block">
+                            <h3 class="subsection-title">Email History</h3>
+
+                            <div class="step-item">
+                                <div class="step-header">
+                                    <span class="step-check">&#10003;</span>
+                                    <span>Track email delivery performance, view sent message logs, and inspect bounce records.</span>
+                                </div>
+                                <div class="screenshot-frame">
+                                    <img src="IMAGES/Messaging screenshots/Screenshot 2026-09-08 000456.png" alt="">
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </details>
+
+                <!-- 6. WhatsApp (Collapsible) -->
+                <details id="wa-section" class="collapsible-card" open>
+                    <summary class="collapsible-header">
+                        🟢 WhatsApp Campaigns
+                    </summary>
+                    <div class="collapsible-body">
+
+                        <!-- Send Bulk WA -->
+                        <div id="send-bulk-wa" class="subsection-block">
+                            <h3 class="subsection-title">Send Bulk WhatsApp</h3>
+
+                            <div class="step-item">
+                                <div class="step-header">
+                                    <span class="step-check">&#10003;</span>
+                                    <span>Step 1: Choose your Recipients (Select a Contact Group, Upload .txt File, or Paste Numbers - one per line or comma-separated).</span>
+                                </div>
+                                <div class="screenshot-frame">
+                                    <img src="IMAGES/Messaging screenshots/Screenshot 2026-09-07 230237.png" alt="">
+                                </div>
+                            </div>
+
+                            <div class="step-item">
+                                <div class="step-header">
+                                    <span class="step-check">&#10003;</span>
+                                    <span>Step 2: Compose your text message and click send whatsapp messages.</span>
+                                </div>
+                                <div class="screenshot-frame">
+                                    <img src="IMAGES/Messaging screenshots/Screenshot 2026-09-07 234148.png" alt="">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Schedule WA -->
+                        <div id="schedule-wa" class="subsection-block">
+                            <h3 class="subsection-title">Schedule WhatsApp</h3>
+
+                            <div class="step-item">
+                                <div class="step-header">
+                                    <span class="step-check">&#10003;</span>
+                                    <span>Step 1: Choose your recipients and pick your target delivery date and time for WhatsApp dispatch.</span>
+                                </div>
+                                <div class="screenshot-frame">
+                                    <img src="IMAGES/Messaging screenshots/Screenshot 2026-09-07 234429.png" alt="">
+                                </div>
+                            </div>
+
+                            <div class="step-item">
+                                <div class="step-header">
+                                    <span class="step-check">&#10003;</span>
+                                    <span>Step 2: Compose your WhatsApp message body and click schedule.</span>
+                                </div>
+                                <div class="screenshot-frame">
+                                    <img src="IMAGES/Messaging screenshots/Screenshot 2026-09-07 234546.png" alt="">
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </details>
+
+            </main>
+        </div>
+
+        <!-- Footer -->
+        <footer class="footer">
+            &copy; 2026 Cironet Technologies Limited. All rights reserved. | <a href="https://cironetug.com" style="color:var(--cironet-blue); text-decoration:none;">cironetug.com</a>
+        </footer>
+
+    </div>
+
+    <!-- Active Link Highlighting Script -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const navLinks = document.querySelectorAll('.sidebar nav a');
+            const targetElements = document.querySelectorAll('[id]');
+
+            window.addEventListener('scroll', () => {
+                let current = '';
+                targetElements.forEach(el => {
+                    const top = el.offsetTop;
+                    if (pageYOffset >= (top - 140)) {
+                        current = el.getAttribute('id');
+                    }
+                });
+
+                navLinks.forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('href') === `#${current}`) {
+                        link.classList.add('active');
+                    }
+                });
+            });
+        });
+    </script>
+</body>

@@ -1,0 +1,865 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cironet Messaging — Start to Delivery Guide</title>
+    <style>
+        /* Base Reset & Brand Colors */
+        :root {
+            --primary-navy: #0b1b3d;
+            --cironet-blue: #1d4ed8;
+            --blue-hover: #1e40af;
+            --light-bg: #f8fafc;
+            --card-bg: #ffffff;
+            --text-dark: #0f172a;
+            --text-muted: #64748b;
+            --border-color: #e2e8f0;
+            --check-green: #10b981;
+            --badge-bg: #eff6ff;
+            --badge-text: #1d4ed8;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background-color: var(--light-bg);
+            color: var(--text-dark);
+            line-height: 1.6;
+            scroll-behavior: smooth;
+        }
+
+        /* Header Navigation */
+        .navbar {
+            background-color: var(--primary-navy);
+            color: #ffffff;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .navbar .brand {
+            font-size: 1.25rem;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .navbar .brand span {
+            color: #60a5fa;
+            font-weight: 400;
+        }
+
+        .navbar .nav-btn {
+            background-color: var(--cironet-blue);
+            color: #ffffff;
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            transition: background 0.2s;
+        }
+
+        .navbar .nav-btn:hover {
+            background-color: var(--blue-hover);
+        }
+
+        /* Layout Container */
+        .container {
+            max-width: 1240px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: #ffffff;
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 2.5rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+        }
+
+        .hero-badge {
+            display: inline-block;
+            background: var(--badge-bg);
+            color: var(--badge-text);
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            padding: 4px 12px;
+            border-radius: 20px;
+            margin-bottom: 1rem;
+        }
+
+        .hero h1 {
+            font-size: 2.25rem;
+            color: var(--primary-navy);
+            font-weight: 800;
+            margin-bottom: 0.75rem;
+            letter-spacing: -0.5px;
+        }
+
+        .hero p {
+            color: var(--text-muted);
+            font-size: 1.05rem;
+            max-width: 850px;
+            margin-bottom: 1.75rem;
+        }
+
+        /* Hero Badges Bar */
+        .steps-bar {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .step-badge {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--light-bg);
+            border: 1px solid var(--border-color);
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: var(--text-dark);
+        }
+
+        .step-number {
+            background: var(--cironet-blue);
+            color: #ffffff;
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+        }
+
+        /* Grid: Sidebar + Content */
+        .guide-grid {
+            display: grid;
+            grid-template-columns: 290px 1fr;
+            gap: 2.5rem;
+            align-items: start;
+        }
+
+        /* Sticky Sidebar */
+        .sidebar {
+            position: sticky;
+            top: 5rem;
+            background: #ffffff;
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 1.25rem;
+            max-height: calc(100vh - 6rem);
+            overflow-y: auto;
+        }
+
+        .sidebar h3 {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-muted);
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .sidebar-group {
+            margin-bottom: 1rem;
+        }
+
+        .sidebar-group-title {
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: var(--primary-navy);
+            margin-bottom: 0.4rem;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .sidebar nav a {
+            display: block;
+            text-decoration: none;
+            color: var(--text-dark);
+            font-size: 0.85rem;
+            font-weight: 500;
+            padding: 5px 10px;
+            border-radius: 6px;
+            margin-bottom: 2px;
+            transition: all 0.2s;
+        }
+
+        .sidebar nav a:hover, .sidebar nav a.active {
+            background-color: var(--badge-bg);
+            color: var(--cironet-blue);
+            font-weight: 600;
+        }
+
+        .sidebar-subnav {
+            padding-left: 12px;
+            border-left: 2px solid var(--border-color);
+            margin-left: 6px;
+        }
+
+        /* Content Area */
+        .content {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .doc-section {
+            background: #ffffff;
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 2rem;
+            scroll-margin-top: 5rem;
+        }
+
+        .section-title-bar {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 1.25rem;
+        }
+
+        .section-num {
+            background: var(--primary-navy);
+            color: #ffffff;
+            font-weight: 700;
+            font-size: 1rem;
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .section-title-bar h2 {
+            font-size: 1.4rem;
+            color: var(--primary-navy);
+            font-weight: 700;
+        }
+
+        .intro-list {
+            list-style: none;
+            margin-top: 1rem;
+        }
+
+        .intro-list li {
+            position: relative;
+            padding-left: 1.5rem;
+            margin-bottom: 0.5rem;
+            color: #334155;
+        }
+
+        .intro-list li::before {
+            content: "•";
+            color: var(--cironet-blue);
+            font-weight: bold;
+            font-size: 1.2rem;
+            position: absolute;
+            left: 0;
+            top: -2px;
+        }
+
+        /* Collapsible Accordions (<details>) */
+        details.collapsible-card {
+            background: #ffffff;
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            margin-bottom: 1rem;
+            overflow: hidden;
+            transition: border 0.2s;
+        }
+
+        details.collapsible-card[open] {
+            border-color: #cbd5e1;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+        }
+
+        summary.collapsible-header {
+            padding: 1.2rem 1.5rem;
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: var(--primary-navy);
+            cursor: pointer;
+            background: #ffffff;
+            list-style: none;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            user-select: none;
+        }
+
+        summary.collapsible-header::-webkit-details-marker {
+            display: none;
+        }
+
+        summary.collapsible-header::after {
+            content: "▼";
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            transition: transform 0.2s;
+        }
+
+        details[open] summary.collapsible-header::after {
+            transform: rotate(180deg);
+            color: var(--cironet-blue);
+        }
+
+        summary.collapsible-header:hover {
+            background: #f8fafc;
+        }
+
+        .collapsible-body {
+            padding: 1.5rem;
+            border-top: 1px solid var(--border-color);
+            background: #ffffff;
+        }
+
+        .subsection-block {
+            margin-bottom: 2rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px dashed var(--border-color);
+            scroll-margin-top: 5rem;
+        }
+
+        .subsection-block:last-child {
+            margin-bottom: 0;
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+
+        .subsection-title {
+            font-size: 1.1rem;
+            color: var(--cironet-blue);
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        /* Step Card Styling with Green Check Icons */
+        .step-item {
+            margin-bottom: 1.75rem;
+            background: #f8fafc;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 1.25rem;
+        }
+
+        .step-header {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            font-weight: 600;
+            color: var(--text-dark);
+            font-size: 0.95rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .step-check {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 22px;
+            height: 22px;
+            background-color: var(--check-green);
+            color: #ffffff;
+            border-radius: 50%;
+            font-size: 12px;
+            font-weight: bold;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        /* Screenshot Container */
+        .screenshot-frame {
+            background: #ffffff;
+            border: 2px dashed #cbd5e1;
+            border-radius: 8px;
+            padding: 1.5rem;
+            text-align: center;
+            color: var(--text-muted);
+            margin-top: 0.75rem;
+        }
+
+        .screenshot-frame img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 6px;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+        }
+
+        .screenshot-label {
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: #64748b;
+            margin-top: 0.4rem;
+        }
+
+        /* Footer */
+        .footer {
+            margin-top: 4rem;
+            padding: 2rem 0;
+            text-align: center;
+            border-top: 1px solid var(--border-color);
+            color: var(--text-muted);
+            font-size: 0.875rem;
+        }
+
+        @media (max-width: 868px) {
+            .guide-grid {
+                grid-template-columns: 1fr;
+            }
+            .sidebar {
+                position: static;
+                max-height: none;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header Navigation -->
+    <header class="navbar">
+        <div class="brand">
+            Cironet <span>Marketplace</span>
+        </div>
+    </header>
+
+    <div class="container">
+        <!-- Hero Section -->
+        <section class="hero">
+            <span class="hero-badge">Official User Guide</span>
+            <h1>Cironet Marketplace</h1>
+            <h3>Complete User How to Guide</h3>
+            <p>A step-by-step walkthrough for navigating the Cironet Marketplace: set up your profile, browse services, adjust price filters, manage orders, and complete seamless payments.</p>
+            
+            <div class="steps-bar">
+                <div class="step-badge">
+                    <span class="step-number">1</span> Dashboard
+                </div>
+                <div class="step-badge">
+                    <span class="step-number">2</span> Services
+                </div>
+                <div class="step-badge">
+                    <span class="step-number">3</span> Orders
+                </div>
+                <div class="step-badge">
+                    <span class="step-number">4</span> Payments
+                </div>
+                <div class="step-badge">
+                    <span class="step-number">5</span> Profile
+                </div>
+            </div>
+        </section>
+
+        <!-- Grid Layout -->
+        <div class="guide-grid">
+            
+            <!-- Sticky Sidebar -->
+            <aside class="sidebar">
+                <nav>
+                    <h3>Guide Sections</h3>
+                    
+                    <div class="sidebar-group">
+                        <div class="sidebar-group-title">1. Dashboard</div>
+                        <div class="sidebar-subnav">
+                            <a href="#step-dashboard-1" class="active">Set Up Account</a>
+                            <a href="#step-dashboard-2">Navigate Dashboard</a>
+                        </div>
+                    </div>
+
+                    <div class="sidebar-group">
+                        <div class="sidebar-group-title">2. Services</div>
+                        <div class="sidebar-subnav">
+                            <a href="#step-services-1">Browse Services</a>
+                            <a href="#step-services-2">Price Filter</a>
+                        </div>
+                    </div>
+
+                    <div class="sidebar-group">
+                        <div class="sidebar-group-title">3. Orders</div>
+                        <div class="sidebar-subnav">
+                            <a href="#step-orders-1">Select Category</a>
+                            <a href="#step-orders-2">Add to Bag</a>
+                            <a href="#step-orders-3">Adjust Quantity</a>
+                            <a href="#step-orders-4">Proceed to Checkout</a>
+                            <a href="#step-orders-5">Shipping Information</a>
+                        </div>
+                    </div>
+
+                    <div class="sidebar-group">
+                        <div class="sidebar-group-title">4. Payments</div>
+                        <div class="sidebar-subnav">
+                            <a href="#step-payments-1">Payment Method</a>
+                            <a href="#step-payments-2">Place Order</a>
+                            <a href="#step-payments-3">Mobile Money Prompt</a>
+                            <a href="#step-payments-4">Order Tracking</a>
+                        </div>
+                    </div>
+
+                    <div class="sidebar-group">
+                        <div class="sidebar-group-title">5. Profile</div>
+                        <div class="sidebar-subnav">
+                            <a href="#step-profile-1">Edit Profile</a>
+                        </div>
+                    </div>
+                </nav>
+            </aside>
+
+            <!-- Main Content Area -->
+            <main class="content">
+
+                <!-- SECTION 1: DASHBOARD -->
+                <section class="doc-section" id="sec-dashboard">
+                    <div class="section-title-bar">
+                        <div class="section-num">1</div>
+                        <h2>Dashboard</h2>
+                    </div>
+
+                    <details class="collapsible-card" open>
+                        <summary class="collapsible-header">
+                            Account Setup & Overview
+                        </summary>
+                        <div class="collapsible-body">
+
+                            <div class="subsection-block" id="step-dashboard-1">
+                                <div class="subsection-title">Step 1: Set Up Account</div>
+                                <div class="step-item">
+                                    <div class="step-header">
+                                        <span class="step-check">&#10003;</span>
+                                        <span>Set up your account by completing initial registration and verifying your access details.</span>
+                                    </div>
+                                    <div class="screenshot-frame">
+                                        <img src="IMAGES/Marketplace screenshots/Screenshot 2026-09-08 150708.png" alt="">
+                                        <img src="IMAGES/Marketplace screenshots/Screenshot 2026-09-08 150724.png" alt="">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="subsection-block" id="step-dashboard-2">
+                                <div class="subsection-title">Step 2: Navigate Dashboard</div>
+                                <div class="step-item">
+                                    <div class="step-header">
+                                        <span class="step-check">&#10003;</span>
+                                        <span>Navigate to your marketplace dashboard to access featured products and services.</span>
+                                    </div>
+                                    <div class="screenshot-frame">
+                                        <img src="IMAGES/Marketplace screenshots/Screenshot 2026-09-08 151427.png" alt="Navigate to your marketplace dashboard">
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </details>
+                </section>
+
+                <!-- SECTION 2: SERVICES -->
+                <section class="doc-section" id="sec-services">
+                    <div class="section-title-bar">
+                        <div class="section-num">2</div>
+                        <h2>Services</h2>
+                    </div>
+
+                    <details class="collapsible-card" open>
+                        <summary class="collapsible-header">
+                            Service Exploration & Catalog Filtering
+                        </summary>
+                        <div class="collapsible-body">
+
+                            <div class="subsection-block" id="step-services-1">
+                                <div class="subsection-title">Step 1: Browse Services</div>
+                                <div class="step-item">
+                                    <div class="step-header">
+                                        <span class="step-check">&#10003;</span>
+                                        <span>Browse the different services on the dashboard to review available items and solutions.</span>
+                                    </div>
+                                    <div class="screenshot-frame">
+                                        <img src="IMAGES/Marketplace screenshots/Screenshot 2026-09-08 151745.png" alt="Browse the different services on the dashboard">
+                                        
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="subsection-block" id="step-services-2">
+                                <div class="subsection-title">Step 2: Filter Price Range</div>
+                                <div class="step-item">
+                                    <div class="step-header">
+                                        <span class="step-check">&#10003;</span>
+                                        <span>You can choose the price range of products for you to browse.</span>
+                                    </div>
+                                    <div class="screenshot-frame">
+                                        <img src="IMAGES/Marketplace screenshots/Screenshot 2026-09-08 152000.png" alt="Choose price range of products">
+                                        
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </details>
+                </section>
+
+                <!-- SECTION 3: ORDERS -->
+                <section class="doc-section" id="sec-orders">
+                    <div class="section-title-bar">
+                        <div class="section-num">3</div>
+                        <h2>Orders</h2>
+                    </div>
+
+                    <details class="collapsible-card" open>
+                        <summary class="collapsible-header">
+                            Selection, Cart Management & Checkout
+                        </summary>
+                        <div class="collapsible-body">
+
+                            <div class="subsection-block" id="step-orders-1">
+                                <div class="subsection-title">Step 1: Choose Category</div>
+                                <div class="step-item">
+                                    <div class="step-header">
+                                        <span class="step-check">&#10003;</span>
+                                        <span>Click on a category you are interested in purchasing from.</span>
+                                    </div>
+                                    <div class="screenshot-frame">
+                                        <img src="IMAGES/Marketplace screenshots/Screenshot 2026-09-08 152223.png" alt="Click on a category you are interested in choosing from">
+                                        
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="subsection-block" id="step-orders-2">
+                                <div class="subsection-title">Step 2: Add to Bag</div>
+                                <div class="step-item">
+                                    <div class="step-header">
+                                        <span class="step-check">&#10003;</span>
+                                        <span>Click on the "Add to Bag" button to add the item to your cart.</span>
+                                    </div>
+                                    <div class="screenshot-frame">
+                                        <img src="IMAGES/Marketplace screenshots/Screenshot 2026-09-08 152542.png" alt="Click on the add to bag button to add item to cart">
+                        
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="subsection-block" id="step-orders-3">
+                                <div class="subsection-title">Step 3: Adjust Quantity</div>
+                                <div class="step-item">
+                                    <div class="step-header">
+                                        <span class="step-check">&#10003;</span>
+                                        <span>Adjust the quantity to your preference and click update cart.</span>
+                                    </div>
+                                    <div class="screenshot-frame">
+                                        <img src="IMAGES/Marketplace screenshots/Screenshot 2026-09-08 152717.png" alt="Adjust the quantity to your preference and click update cart">
+                                        
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="subsection-block" id="step-orders-4">
+                                <div class="subsection-title">Step 4: Proceed to Checkout</div>
+                                <div class="step-item">
+                                    <div class="step-header">
+                                        <span class="step-check">&#10003;</span>
+                                        <span>Proceed to the checkout by clicking on the proceed button.</span>
+                                    </div>
+                                    <div class="screenshot-frame">
+                                        <img src="IMAGES/Marketplace screenshots/Screenshot 2026-09-08 155257.png" alt="Proceed to checkout by clicking proceed button">
+                                       
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="subsection-block" id="step-orders-5">
+                                <div class="subsection-title">Step 5: Shipping Information</div>
+                                <div class="step-item">
+                                    <div class="step-header">
+                                        <span class="step-check">&#10003;</span>
+                                        <span>Fill in the shipping information, making sure it is accurate to avoid any future issues with delivery.</span>
+                                    </div>
+                                    <div class="screenshot-frame">
+                                        <img src="IMAGES/Marketplace screenshots/Screenshot 2026-09-08 155410.png" alt="Fill in shipping information accurately">
+                                        
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </details>
+                </section>
+
+                <!-- SECTION 4: PAYMENTS -->
+                <section class="doc-section" id="sec-payments">
+                    <div class="section-title-bar">
+                        <div class="section-num">4</div>
+                        <h2>Payments</h2>
+                    </div>
+
+                    <details class="collapsible-card" open>
+                        <summary class="collapsible-header">
+                            Payment Gateway & Order Tracking
+                        </summary>
+                        <div class="collapsible-body">
+
+                            <div class="subsection-block" id="step-payments-1">
+                                <div class="subsection-title">Step 1: Choose Payment Method</div>
+                                <div class="step-item">
+                                    <div class="step-header">
+                                        <span class="step-check">&#10003;</span>
+                                        <span>Choose your preferred payment method.</span>
+                                    </div>
+                                    <div class="screenshot-frame">
+                                        <img src="IMAGES/Marketplace screenshots/Screenshot 2026-09-08 155557.png" alt="Choose your preferred payment method">
+                                        
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="subsection-block" id="step-payments-2">
+                                <div class="subsection-title">Step 2: Place Order</div>
+                                <div class="step-item">
+                                    <div class="step-header">
+                                        <span class="step-check">&#10003;</span>
+                                        <span>Click on place order to proceed to the payment page.</span>
+                                    </div>
+                                    <div class="screenshot-frame">
+                                        <img src="IMAGES/Marketplace screenshots/Screenshot 2026-09-08 155607.png" alt="Click on place order to proceed to payment page">
+                                        
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="subsection-block" id="step-payments-3">
+                                <div class="subsection-title">Step 3: Mobile Money Prompt</div>
+                                <div class="step-item">
+                                    <div class="step-header">
+                                        <span class="step-check">&#10003;</span>
+                                        <span>Wait for a mobile money prompt on your phone number and input the necessary information.</span>
+                                    </div>
+                                    <div class="screenshot-frame">
+                                        <img src="IMAGES/Marketplace screenshots/Screenshot 2026-09-08 145236.png" alt="Wait for mobile money prompt on phone number">
+                                        
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="subsection-block" id="step-payments-4">
+                                <div class="subsection-title">Step 4: Track Order Status</div>
+                                <div class="step-item">
+                                    <div class="step-header">
+                                        <span class="step-check">&#10003;</span>
+                                        <span>You can track your order from pending to delivered in real time.</span>
+                                    </div>
+                                    <div class="screenshot-frame">
+                                        <img src="IMAGES/Marketplace screenshots/Screenshot 2026-09-08 160543.png" alt="Track your order from pending to delivered">
+                                        <img src="IMAGES/Marketplace screenshots/Screenshot 2026-09-08 160139.png" alt="Track your order from pending to delivered">
+                                       
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </details>
+                </section>
+
+                <!-- SECTION 5: PROFILE -->
+                <section class="doc-section" id="sec-profile">
+                    <div class="section-title-bar">
+                        <div class="section-num">5</div>
+                        <h2>Profile</h2>
+                    </div>
+
+                    <details class="collapsible-card" open>
+                        <summary class="collapsible-header">
+                            Profile Management & Order Autofill
+                        </summary>
+                        <div class="collapsible-body">
+
+                            <div class="subsection-block" id="step-profile-1">
+                                <div class="subsection-title">Step 1: Edit Profile</div>
+                                <div class="step-item">
+                                    <div class="step-header">
+                                        <span class="step-check">&#10003;</span>
+                                        <span>You can edit your profile which is autofilled into your shipping information when placing an order.</span>
+                                    </div>
+                                    <div class="screenshot-frame">
+                                        <img src="IMAGES/Marketplace screenshots/Screenshot 2026-09-08 160845.png" alt="Edit profile autofilled into shipping information">
+                                       
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </details>
+                </section>
+
+            </main>
+        </div>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>&copy; 2026 Cironet Marketplace. All rights reserved.</p>
+        </footer>
+    </div>
+
+    <!-- Active Link Highlighter JS Script -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const navLinks = document.querySelectorAll('.sidebar nav a');
+            const subSections = document.querySelectorAll('.subsection-block');
+
+            // Click Handler: Highlight active sidebar link
+            navLinks.forEach(link => {
+                link.addEventListener('click', function() {
+                    navLinks.forEach(l => l.classList.remove('active'));
+                    this.classList.add('active');
+                });
+            });
+
+            // Scroll Handler: Highlight active sidebar link when scrolling past steps
+            const observerOptions = {
+                root: null,
+                rootMargin: '-20% 0px -60% 0px',
+                threshold: 0
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const id = entry.target.getAttribute('id');
+                        const correspondingLink = document.querySelector(`.sidebar nav a[href="#${id}"]`);
+                        if (correspondingLink) {
+                            navLinks.forEach(l => l.classList.remove('active'));
+                            correspondingLink.classList.add('active');
+                        }
+                    }
+                });
+            }, observerOptions);
+
+            subSections.forEach(section => observer.observe(section));
+        });
+    </script>
+</body>
+</html>

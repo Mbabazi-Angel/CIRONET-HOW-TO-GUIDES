@@ -1,0 +1,942 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CironetSmart — Admin Dashboard & Business OS Guide</title>
+    <style>
+        /* Base Reset & Brand Colors */
+        :root {
+            --primary-navy: #0b1b3d;
+            --cironet-blue: #1d4ed8;
+            --blue-hover: #1e40af;
+            --light-bg: #f8fafc;
+            --card-bg: #ffffff;
+            --text-dark: #0f172a;
+            --text-muted: #64748b;
+            --border-color: #e2e8f0;
+            --check-green: #10b981;
+            --badge-bg: #eff6ff;
+            --badge-text: #1d4ed8;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background-color: var(--light-bg);
+            color: var(--text-dark);
+            line-height: 1.6;
+            scroll-behavior: smooth;
+        }
+
+        /* Header Navigation */
+        .navbar {
+            background-color: var(--primary-navy);
+            color: #ffffff;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .navbar .brand {
+            font-size: 1.25rem;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .navbar .brand span {
+            color: #60a5fa;
+            font-weight: 400;
+        }
+
+        .navbar .nav-btn {
+            background-color: var(--cironet-blue);
+            color: #ffffff;
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            transition: background 0.2s;
+        }
+
+        .navbar .nav-btn:hover {
+            background-color: var(--blue-hover);
+        }
+
+        /* Layout Container */
+        .container {
+            max-width: 1240px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: #ffffff;
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 2.5rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+        }
+
+        .hero-badge {
+            display: inline-block;
+            background: var(--badge-bg);
+            color: var(--badge-text);
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            padding: 4px 12px;
+            border-radius: 20px;
+            margin-bottom: 1rem;
+        }
+
+        .hero h1 {
+            font-size: 2.25rem;
+            color: var(--primary-navy);
+            font-weight: 800;
+            margin-bottom: 0.75rem;
+            letter-spacing: -0.5px;
+        }
+
+        .hero p {
+            color: var(--text-muted);
+            font-size: 1.05rem;
+            max-width: 850px;
+            margin-bottom: 1.75rem;
+        }
+
+        /* Hero Badges Bar */
+        .steps-bar {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .step-badge {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--light-bg);
+            border: 1px solid var(--border-color);
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: var(--text-dark);
+        }
+
+        .step-number {
+            background: var(--cironet-blue);
+            color: #ffffff;
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+        }
+
+        /* Grid: Sidebar + Content */
+        .guide-grid {
+            display: grid;
+            grid-template-columns: 290px 1fr;
+            gap: 2.5rem;
+            align-items: start;
+        }
+
+        /* Sticky Sidebar */
+        .sidebar {
+            position: sticky;
+            top: 5rem;
+            background: #ffffff;
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 1.25rem;
+            max-height: calc(100vh - 6rem);
+            overflow-y: auto;
+        }
+
+        .sidebar h3 {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-muted);
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .sidebar-group {
+            margin-bottom: 1rem;
+        }
+
+        .sidebar-group-title {
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: var(--primary-navy);
+            margin-bottom: 0.4rem;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .sidebar nav a {
+            display: block;
+            text-decoration: none;
+            color: var(--text-dark);
+            font-size: 0.85rem;
+            font-weight: 500;
+            padding: 5px 10px;
+            border-radius: 6px;
+            margin-bottom: 2px;
+            transition: all 0.2s;
+        }
+
+        .sidebar nav a:hover, .sidebar nav a.active {
+            background-color: var(--badge-bg);
+            color: var(--cironet-blue);
+            font-weight: 600;
+        }
+
+        .sidebar-subnav {
+            padding-left: 12px;
+            border-left: 2px solid var(--border-color);
+            margin-left: 6px;
+        }
+
+        /* Content Area */
+        .content {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .doc-section {
+            background: #ffffff;
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 2rem;
+            scroll-margin-top: 5rem;
+        }
+
+        .section-title-bar {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 1.25rem;
+        }
+
+        .section-num {
+            background: var(--primary-navy);
+            color: #ffffff;
+            font-weight: 700;
+            font-size: 1rem;
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .section-title-bar h2 {
+            font-size: 1.4rem;
+            color: var(--primary-navy);
+            font-weight: 700;
+        }
+
+        .intro-list {
+            list-style: none;
+            margin-top: 1rem;
+        }
+
+        .intro-list li {
+            position: relative;
+            padding-left: 1.5rem;
+            margin-bottom: 0.5rem;
+            color: #334155;
+        }
+
+        .intro-list li::before {
+            content: "•";
+            color: var(--cironet-blue);
+            font-weight: bold;
+            font-size: 1.2rem;
+            position: absolute;
+            left: 0;
+            top: -2px;
+        }
+
+        /* Collapsible Accordions (<details>) */
+        details.collapsible-card {
+            background: #ffffff;
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            margin-bottom: 1rem;
+            overflow: hidden;
+            transition: border 0.2s;
+        }
+
+        details.collapsible-card[open] {
+            border-color: #cbd5e1;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+        }
+
+        summary.collapsible-header {
+            padding: 1.2rem 1.5rem;
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: var(--primary-navy);
+            cursor: pointer;
+            background: #ffffff;
+            list-style: none;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            user-select: none;
+        }
+
+        summary.collapsible-header::-webkit-details-marker {
+            display: none;
+        }
+
+        summary.collapsible-header::after {
+            content: "▼";
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            transition: transform 0.2s;
+        }
+
+        details[open] summary.collapsible-header::after {
+            transform: rotate(180deg);
+            color: var(--cironet-blue);
+        }
+
+        summary.collapsible-header:hover {
+            background: #f8fafc;
+        }
+
+        .collapsible-body {
+            padding: 1.5rem;
+            border-top: 1px solid var(--border-color);
+            background: #ffffff;
+        }
+
+        .subsection-block {
+            margin-bottom: 2rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px dashed var(--border-color);
+            scroll-margin-top: 5rem;
+        }
+
+        .subsection-block:last-child {
+            margin-bottom: 0;
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+
+        .subsection-title {
+            font-size: 1.1rem;
+            color: var(--cironet-blue);
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        /* Step Card Styling with Green Check Icons */
+        .step-item {
+            margin-bottom: 1.75rem;
+            background: #f8fafc;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 1.25rem;
+        }
+
+        .step-header {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            font-weight: 600;
+            color: var(--text-dark);
+            font-size: 0.95rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .step-check {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 22px;
+            height: 22px;
+            background-color: var(--check-green);
+            color: #ffffff;
+            border-radius: 50%;
+            font-size: 12px;
+            font-weight: bold;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        /* Screenshot Container */
+        .screenshot-frame {
+            background: #ffffff;
+            border: 2px dashed #cbd5e1;
+            border-radius: 8px;
+            padding: 1.5rem;
+            text-align: center;
+            color: var(--text-muted);
+            margin-top: 0.75rem;
+        }
+
+        .screenshot-frame img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 6px;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+        }
+
+        .screenshot-label {
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: #64748b;
+            margin-top: 0.4rem;
+        }
+
+        /* Footer */
+        .footer {
+            margin-top: 4rem;
+            padding: 2rem 0;
+            text-align: center;
+            border-top: 1px solid var(--border-color);
+            color: var(--text-muted);
+            font-size: 0.875rem;
+        }
+
+        @media (max-width: 868px) {
+            .guide-grid {
+                grid-template-columns: 1fr;
+            }
+            .sidebar {
+                position: static;
+                max-height: none;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header Navigation -->
+    <header class="navbar">
+        <div class="brand">
+            Cironet <span>Smart Business OS</span>
+        </div>
+        <a href="https://smart.cironetug.com/" target="_blank" class="nav-btn">Launch CironetSmart</a>
+    </header>
+
+    <div class="container">
+        <!-- Hero Section -->
+        <section class="hero">
+            <span class="hero-badge">Admin Navigation Guide</span>
+            <h1>CironetSmart — Admin Dashboard Walkthrough</h1>
+            <p>Complete operational reference guide for the CironetSmart Business OS (https://smart.cironetug.com/). Learn how to navigate Business Intelligence metrics, manage Sales pipelines, oversee Operations, track Finance records, handle HR & Back Office workflows, and configure System settings.</p>
+            
+            <div class="steps-bar">
+                <div class="step-badge">
+                    <span class="step-number">1</span> Dashboard BI
+                </div>
+                <div class="step-badge">
+                    <span class="step-number">2</span> Sales
+                </div>
+                <div class="step-badge">
+                    <span class="step-number">3</span> Operations
+                </div>
+                <div class="step-badge">
+                    <span class="step-number">4</span> Finance
+                </div>
+                <div class="step-badge">
+                    <span class="step-number">5</span> HR & Administration
+                </div>
+            </div>
+        </section>
+
+        <!-- Grid Layout -->
+        <div class="guide-grid">
+            
+            <!-- Sticky Sidebar -->
+            <aside class="sidebar">
+                <nav>
+                    <h3>Admin Modules Navigation</h3>
+                    
+                    <div class="sidebar-group">
+                        <div class="sidebar-group-title">1. Dashboard & BI</div>
+                        <div class="sidebar-subnav">
+                            <a href="#step-bi-overview" class="active">Business Intelligence</a>
+                            <a href="#step-global-context">Global Context & Node Status</a>
+                        </div>
+                    </div>
+
+                    <div class="sidebar-group">
+                        <div class="sidebar-group-title">2. Sales Module</div>
+                        <div class="sidebar-subnav">
+                            <a href="#step-sales-pipeline">Leads & Deals Management</a>
+                            <a href="#step-sales-docs">Quotations & Contracts</a>
+                        </div>
+                    </div>
+
+                    <div class="sidebar-group">
+                        <div class="sidebar-group-title">3. Operations Module</div>
+                        <div class="sidebar-subnav">
+                            <a href="#step-ops-inventory">Items & Inventory Tracking</a>
+                            <a href="#step-ops-assets">Vendors & Asset Management</a>
+                        </div>
+                    </div>
+
+                    <div class="sidebar-group">
+                        <div class="sidebar-group-title">4. Finance Module</div>
+                        <div class="sidebar-subnav">
+                            <a href="#step-fin-accounting">Chart of Accounts & Invoices</a>
+                            <a href="#step-fin-recon">Tax, VAT & Bank Reconciliation</a>
+                        </div>
+                    </div>
+
+                    <div class="sidebar-group">
+                        <div class="sidebar-group-title">5. People & HR</div>
+                        <div class="sidebar-subnav">
+                            <a href="#step-hr-employees">Employee Records & Payroll</a>
+                            <a href="#step-hr-attendance">Attendance & Performance</a>
+                        </div>
+                    </div>
+
+                    <div class="sidebar-group">
+                        <div class="sidebar-group-title">6. Back Office</div>
+                        <div class="sidebar-subnav">
+                            <a href="#step-backoffice-reqs">Requisitions & Petty Cash</a>
+                            <a href="#step-backoffice-vault">Documents, Vault & IT Desk</a>
+                        </div>
+                    </div>
+
+                    <div class="sidebar-group">
+                        <div class="sidebar-group-title">7. Strategy</div>
+                        <div class="sidebar-subnav">
+                            <a href="#step-strategy-projects">Projects & Tasks</a>
+                            <a href="#step-strategy-reports">Analytics & Reports</a>
+                        </div>
+                    </div>
+
+                    <div class="sidebar-group">
+                        <div class="sidebar-group-title">8. System & Tools</div>
+                        <div class="sidebar-subnav">
+                            <a href="#step-system-admin">Users, Branches & Security Audit</a>
+                            <a href="#step-system-tools">Bulk Import & Webhooks</a>
+                        </div>
+                    </div>
+                </nav>
+            </aside>
+
+            <!-- Main Content Area -->
+            <main class="content">
+
+                <!-- SECTION 1: DASHBOARD & BI -->
+                <section class="doc-section" id="sec-bi">
+                    <div class="section-title-bar">
+                        <div class="section-num">1</div>
+                        <h2>Business Intelligence & Overview</h2>
+                    </div>
+
+                    <p>The CironetSmart Admin Dashboard provides high-level executive analytics, revenue trends, active operations monitoring, and direct access to system-wide AI assistant alerts.</p>
+
+                    <details class="collapsible-card" open>
+                        <summary class="collapsible-header">
+                            Executive KPI Cards & Revenue Analytics
+                        </summary>
+                        <div class="collapsible-body">
+
+                            <div class="subsection-block" id="step-bi-overview">
+                                <div class="subsection-title">Step 1.1: Monitoring Key Performance Indicators (KPIs)</div>
+                                <div class="step-item">
+                                    <div class="step-header">
+                                        <span class="step-check">&#10003;</span>
+                                        <span>Review real-time metrics including Verified Revenue (UGX), Open Pipeline, Active Delivery Projects, and Infrastructure Node Security status.</span>
+                                    </div>
+                                    <div class="screenshot-frame">
+                                        <img src="assets/Screenshot 2026-09-10 093424.png" alt="CironetSmart Business Intelligence Dashboard Header">
+                                        <div class="screenshot-label">Figure 1.1 — Business Intelligence Analytics & Quick Action Buttons (+ Invoice, + New Lead)</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="subsection-block" id="step-global-context">
+                                <div class="subsection-title">Step 1.2: Global Context, Branch Switching & AI Assistant</div>
+                                <div class="step-item">
+                                    <div class="step-header">
+                                        <span class="step-check">&#10003;</span>
+                                        <span>Switch operational branches (e.g., Main Branch), verify SSL security node status, and inspect AI Assistant alerts for supply chain or growth insights.</span>
+                                    </div>
+                                    <div class="screenshot-frame">
+                                        <img src="assets/Screenshot 2026-09-10 093424.png" alt="AI Assistant & Global Context Header Bar">
+                                        <div class="screenshot-label">Figure 1.2 — Global Context Selector, Branch Dropdown, and AI Assistant Operational Alerts</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </details>
+                </section>
+
+                <!-- SECTION 2: SALES MODULE -->
+                <section class="doc-section" id="sec-sales">
+                    <div class="section-title-bar">
+                        <div class="section-num">2</div>
+                        <h2>Sales Module Navigation</h2>
+                    </div>
+
+                    <details class="collapsible-card" open>
+                        <summary class="collapsible-header">
+                            Leads, Customers, Deals & Contracts
+                        </summary>
+                        <div class="collapsible-body">
+
+                            <div class="subsection-block" id="step-sales-pipeline">
+                                <div class="subsection-title">Step 2.1: Managing Leads, Customers & Contacts</div>
+                                <div class="step-item">
+                                    <div class="step-header">
+                                        <span class="step-check">&#10003;</span>
+                                        <span>Click on the 'Sales' section in the left sidebar menu to access the Lead generation pipeline, Customer master list, and Contact directory.</span>
+                                    </div>
+                                    <div class="screenshot-frame">
+                                        <img src="assets/Screenshot 2026-09-10 093424.png" alt="Sales Sidebar Menu Items">
+                                        <div class="screenshot-label">Figure 2.1 — Sales Module Sidebar Menu (Leads, Customers, Contacts, Deals)</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="subsection-block" id="step-sales-docs">
+                                <div class="subsection-title">Step 2.2: Generating Quotations & Managing Contracts</div>
+                                <div class="step-item">
+                                    <div class="step-header">
+                                        <span class="step-check">&#10003;</span>
+                                        <span>Create new commercial Quotations and track active client Contracts directly from the Sales navigation list.</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </details>
+                </section>
+
+                <!-- SECTION 3: OPERATIONS MODULE -->
+                <section class="doc-section" id="sec-operations">
+                    <div class="section-title-bar">
+                        <div class="section-num">3</div>
+                        <h2>Operations Module</h2>
+                    </div>
+
+                    <details class="collapsible-card" open>
+                        <summary class="collapsible-header">
+                            Inventory, Items, Vendors & Company Assets
+                        </summary>
+                        <div class="collapsible-body">
+
+                            <div class="subsection-block" id="step-ops-inventory">
+                                <div class="subsection-title">Step 3.1: Item Catalog & Stock Inventory Control</div>
+                                <div class="step-item">
+                                    <div class="step-header">
+                                        <span class="step-check">&#10003;</span>
+                                        <span>Navigate to 'Operations' menu to manage product Items, track real-time stock levels, and set critical reorder points.</span>
+                                    </div>
+                                    <div class="screenshot-frame">
+                                        <img src="assets/Screenshot 2026-09-10 093424.png" alt="Operations Sidebar Menu Options">
+                                        <div class="screenshot-label">Figure 3.1 — Operations Category Options (Items, Inventory, Vendors, Assets)</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="subsection-block" id="step-ops-assets">
+                                <div class="subsection-title">Step 3.2: Vendor Management & Fixed Asset Tracking</div>
+                                <div class="step-item">
+                                    <div class="step-header">
+                                        <span class="step-check">&#10003;</span>
+                                        <span>Maintain supplier records in the Vendors tab and oversee company equipment and Fixed Assets.</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </details>
+                </section>
+
+                <!-- SECTION 4: FINANCE MODULE -->
+                <section class="doc-section" id="sec-finance">
+                    <div class="section-title-bar">
+                        <div class="section-num">4</div>
+                        <h2>Finance & Accounting Module</h2>
+                    </div>
+
+                    <details class="collapsible-card" open>
+                        <summary class="collapsible-header">
+                            Invoicing, Expenses, Banking & Financial Statements
+                        </summary>
+                        <div class="collapsible-body">
+
+                            <div class="subsection-block" id="step-fin-accounting">
+                                <div class="subsection-title">Step 4.1: Chart of Accounts, Invoices & Income/Expenses</div>
+                                <div class="step-item">
+                                    <div class="step-header">
+                                        <span class="step-check">&#10003;</span>
+                                        <span>Access 'Finance' menu to view the Chart of Accounts, issue billing Invoices or Recurring Invoices, and record operational Expenses.</span>
+                                    </div>
+                                    <div class="screenshot-frame">
+                                        <img src="assets/Screenshot 2026-09-10 094951.png" alt="Finance Sidebar Menu Items">
+                                        <div class="screenshot-label">Figure 4.1 — Finance Module Expanded Options (Invoices, Income, Expenses, Bills, Tax/VAT)</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="subsection-block" id="step-fin-recon">
+                                <div class="subsection-title">Step 4.2: Bank Reconciliation, Statements & Customer Deposits</div>
+                                <div class="step-item">
+                                    <div class="step-header">
+                                        <span class="step-check">&#10003;</span>
+                                        <span>Perform Bank Reconciliations, generate general ledger Financial Statements, and monitor advance Customer Deposits.</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </details>
+                </section>
+
+                <!-- SECTION 5: PEOPLE & HR MODULE -->
+                <section class="doc-section" id="sec-hr">
+                    <div class="section-title-bar">
+                        <div class="section-num">5</div>
+                        <h2>People & HR Module</h2>
+                    </div>
+
+                    <details class="collapsible-card" open>
+                        <summary class="collapsible-header">
+                            Employee Management, Payroll & Attendance
+                        </summary>
+                        <div class="collapsible-body">
+
+                            <div class="subsection-block" id="step-hr-employees">
+                                <div class="subsection-title">Step 5.1: Employee Profiles & Payroll Processing</div>
+                                <div class="step-item">
+                                    <div class="step-header">
+                                        <span class="step-check">&#10003;</span>
+                                        <span>Select 'People & HR' to manage staff profiles, process automated monthly Payroll, and maintain staff records.</span>
+                                    </div>
+                                    <div class="screenshot-frame">
+                                        <img src="assets/Screenshot 2026-09-10 094951.png" alt="People & HR Menu items">
+                                        <div class="screenshot-label">Figure 5.1 — HR Category Menu (Employees, Payroll, Attendance, Performance)</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="subsection-block" id="step-hr-attendance">
+                                <div class="subsection-title">Step 5.2: Tracking Attendance & Performance Reviews</div>
+                                <div class="step-item">
+                                    <div class="step-header">
+                                        <span class="step-check">&#10003;</span>
+                                        <span>Log daily time logs under Attendance and evaluate quarterly staff KPIs in the Performance sub-module.</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </details>
+                </section>
+
+                <!-- SECTION 6: BACK OFFICE -->
+                <section class="doc-section" id="sec-backoffice">
+                    <div class="section-title-bar">
+                        <div class="section-num">6</div>
+                        <h2>Back Office Module</h2>
+                    </div>
+
+                    <details class="collapsible-card" open>
+                        <summary class="collapsible-header">
+                            Requisitions, Documents, Vault & IT Desk
+                        </summary>
+                        <div class="collapsible-body">
+
+                            <div class="subsection-block" id="step-backoffice-reqs">
+                                <div class="subsection-title">Step 6.1: Internal Requisitions & Petty Cash Management</div>
+                                <div class="step-item">
+                                    <div class="step-header">
+                                        <span class="step-check">&#10003;</span>
+                                        <span>Submit internal purchase Requisitions and track cash disbursements through the Petty Cash module.</span>
+                                    </div>
+                                    <div class="screenshot-frame">
+                                        <img src="assets/Screenshot 2026-09-10 095012.png" alt="Back Office Sidebar Menu">
+                                        <div class="screenshot-label">Figure 6.1 — Back Office Options (Requisitions, Petty Cash, Documents, Vault, IT Service Desk)</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="subsection-block" id="step-backoffice-vault">
+                                <div class="subsection-title">Step 6.2: Corporate Document Vault, Licenses & IT Service Desk</div>
+                                <div class="step-item">
+                                    <div class="step-header">
+                                        <span class="step-check">&#10003;</span>
+                                        <span>Store confidential enterprise files in the Vault, monitor software Licenses, and resolve internal support tickets via IT Service Desk.</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </details>
+                </section>
+
+                <!-- SECTION 7: STRATEGY MODULE -->
+                <section class="doc-section" id="sec-strategy">
+                    <div class="section-title-bar">
+                        <div class="section-num">7</div>
+                        <h2>Strategy Module</h2>
+                    </div>
+
+                    <details class="collapsible-card" open>
+                        <summary class="collapsible-header">
+                            Project Delivery, Task Boards & Reports
+                        </summary>
+                        <div class="collapsible-body">
+
+                            <div class="subsection-block" id="step-strategy-projects">
+                                <div class="subsection-title">Step 7.1: Managing Enterprise Projects & Tasks</div>
+                                <div class="step-item">
+                                    <div class="step-header">
+                                        <span class="step-check">&#10003;</span>
+                                        <span>Create strategic Projects, assign sprint Tasks, and monitor delivery milestones across active teams.</span>
+                                    </div>
+                                    <div class="screenshot-frame">
+                                        <img src="assets/Screenshot 2026-09-10 095029.png" alt="Strategy Menu Options">
+                                        <div class="screenshot-label">Figure 7.1 — Strategy Sidebar Sub-items (Projects, Tasks, Reports)</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="subsection-block" id="step-strategy-reports">
+                                <div class="subsection-title">Step 7.2: Custom BI Reports & Operational Analytics</div>
+                                <div class="step-item">
+                                    <div class="step-header">
+                                        <span class="step-check">&#10003;</span>
+                                        <span>Generate consolidated multi-branch Reports for revenue dynamic trends and departmental audits.</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </details>
+                </section>
+
+                <!-- SECTION 8: SYSTEM & TOOLS -->
+                <section class="doc-section" id="sec-system">
+                    <div class="section-title-bar">
+                        <div class="section-num">8</div>
+                        <h2>System Administration & Tools</h2>
+                    </div>
+
+                    <details class="collapsible-card" open>
+                        <summary class="collapsible-header">
+                            Users, Branches, Security Audit & Webhooks
+                        </summary>
+                        <div class="collapsible-body">
+
+                            <div class="subsection-block" id="step-system-admin">
+                                <div class="subsection-title">Step 8.1: User Roles, Branch Configuration & Audit Trail</div>
+                                <div class="step-item">
+                                    <div class="step-header">
+                                        <span class="step-check">&#10003;</span>
+                                        <span>Manage system Users, configure organization Branches, review security Audit logs, and manage deleted items in Trash / Recycle Bin.</span>
+                                    </div>
+                                    <div class="screenshot-frame">
+                                        <img src="assets/Screenshot 2026-09-10 095029.png" alt="System Admin Options">
+                                        <div class="screenshot-label">Figure 8.1 — System Administration Submenu (Users, Settings, Branches, Audit, Trash)</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="subsection-block" id="step-system-tools">
+                                <div class="subsection-title">Step 8.2: Bulk Data Import & API Webhooks Integration</div>
+                                <div class="step-item">
+                                    <div class="step-header">
+                                        <span class="step-check">&#10003;</span>
+                                        <span>Use 'Tools' to perform Bulk Data Imports via CSV/Excel and configure Webhooks for external API integrations.</span>
+                                    </div>
+                                    <div class="screenshot-frame">
+                                        <img src="assets/Screenshot 2026-09-10 095029.png" alt="Tools Menu Items">
+                                        <div class="screenshot-label">Figure 8.2 — Tools Sidebar Items (Bulk Import, Webhooks)</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </details>
+                </section>
+
+            </main>
+        </div>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>&copy; 2026 CironetSmart Business OS. All rights reserved.</p>
+        </footer>
+    </div>
+
+    <!-- Active Link Highlighter JS Script -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const navLinks = document.querySelectorAll('.sidebar nav a');
+            const subSections = document.querySelectorAll('.subsection-block');
+
+            // Click Handler: Highlight active sidebar link
+            navLinks.forEach(link => {
+                link.addEventListener('click', function() {
+                    navLinks.forEach(l => l.classList.remove('active'));
+                    this.classList.add('active');
+                });
+            });
+
+            // Scroll Handler: Highlight active sidebar link when scrolling past steps
+            const observerOptions = {
+                root: null,
+                rootMargin: '-20% 0px -60% 0px',
+                threshold: 0
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const id = entry.target.getAttribute('id');
+                        const correspondingLink = document.querySelector(`.sidebar nav a[href="#${id}"]`);
+                        if (correspondingLink) {
+                            navLinks.forEach(l => l.classList.remove('active'));
+                            correspondingLink.classList.add('active');
+                        }
+                    }
+                });
+            }, observerOptions);
+
+            subSections.forEach(section => observer.observe(section));
+        });
+    </script>
+</body>
+</html>
